@@ -8,10 +8,11 @@ class Habit(models.Model):
     time = models.TimeField(verbose_name='время, в которое выполняется привычка')
     action = models.CharField(max_length=255, verbose_name='действие, которое представляет собой привычка')
     is_pleasant = models.BooleanField(default=False, verbose_name='полезность привычки')
-    linked_habit = models.ForeignKey('self', **NULLABLE, on_delete=models.SET_NULL, related_name="linked_to", verbose_name='связанность привычки')
-    periodicity = models.IntegerField(default=1, verbose_name='переодичность')
+    linked_habit = models.ForeignKey('self', **NULLABLE, on_delete=models.SET_NULL, related_name="linked_to",
+                                     verbose_name='связанность привычки')
+    period = models.PositiveIntegerField(default=1, verbose_name='переодичность')
     reward = models.CharField(max_length=255, **NULLABLE, verbose_name='вознаграждение')
-    time_to_complete = models.DurationField(default="00:01:00", verbose_name='время на выполнение')
+    time_to_complete = models.PositiveIntegerField(default=0, verbose_name='время на выполнение')
     is_public = models.BooleanField(default=False, verbose_name='признак публичности')
 
     def __str__(self):
