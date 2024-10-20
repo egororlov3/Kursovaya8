@@ -15,7 +15,6 @@ class HabitSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate(self, data):
-        print("Validating data:", data)  # Для отладки
         user = self.context['request'].user
 
         # Проверка пользователя

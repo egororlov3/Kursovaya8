@@ -13,3 +13,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Автоматическое обнаружение и регистрация задач из файлов tasks.py в приложениях Django
 app.autodiscover_tasks()
+
+# Установка часового пояса (это можно также добавить в ваши настройки Django)
+CELERY_TIMEZONE = 'Europe/Moscow'

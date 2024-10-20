@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +26,9 @@ SECRET_KEY = 'django-insecure-_@vo0%1dkwa(j8e&1t$6h+t-5_)fw9go_0wy065na917bn)kp2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ba70-95-24-220-215.ngrok-free.app', 'localhost', '127.0.0.1']
+
+APPEND_SLASH = False
 
 # Application definition
 
@@ -40,12 +44,14 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'django_celery_beat',
+    'corsheaders',
 
     'users',
     'habits',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -112,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -150,7 +156,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 # Часовой пояс
-CELERY_TIMEZONE = "Australia/Tasmania"
+CELERY_TIMEZONE = "Europe/Moscow"
 
 # Отслеживание начала задач
 CELERY_TASK_TRACK_STARTED = True
@@ -158,13 +164,11 @@ CELERY_TASK_TRACK_STARTED = True
 # Ограничение времени выполнения задач
 CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 минут
 
-# Настройки почтового сервера
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'sidxxx3@yandex.ru'
-EMAIL_HOST_PASSWORD = 'rqmusyhgzxjfkblj'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
-EMAIL_ADMIN = EMAIL_HOST_USER
+
+TELEGRAM_BOT_TOKEN = '7809347377:AAGBdPUSRcNsBgQcMWsvHGxrm-EMBtL3fso'
+
+# URL для вебхука вашего Telegram-бота
+WEBHOOK_URL = 'https://ba70-95-24-220-215.ngrok-free.app/telegram-webhook/'
+
+
+CORS_ALLOW_ALL_ORIGINS = True
