@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-_@vo0%1dkwa(j8e&1t$6h+t-5_)fw9go_0wy065na917bn)kp2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ba70-95-24-220-215.ngrok-free.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['15c4-95-24-220-215.ngrok-free.app', 'localhost', '127.0.0.1']
 
 APPEND_SLASH = False
 
@@ -168,7 +168,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 минут
 TELEGRAM_BOT_TOKEN = '7809347377:AAGBdPUSRcNsBgQcMWsvHGxrm-EMBtL3fso'
 
 # URL для вебхука вашего Telegram-бота
-WEBHOOK_URL = 'https://ba70-95-24-220-215.ngrok-free.app/telegram-webhook/'
+WEBHOOK_URL = 'https://15c4-95-24-220-215.ngrok-free.app/telegram-webhook/'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
