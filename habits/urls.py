@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .apps import HabitsConfig
-from .views import UserHabitsView, PublicHabitsView, HabitCreateView, HabitDetailView, handle_telegram_message
+from .views import (UserHabitsView, PublicHabitsView,
+                    HabitCreateView, HabitDetailView, handle_telegram_message)
 
 app_name = HabitsConfig.name
 

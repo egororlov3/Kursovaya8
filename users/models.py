@@ -5,13 +5,18 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True, verbose_name='почта')
+    email = models.EmailField(unique=True,
+                              verbose_name='почта')
 
-    phone = models.CharField(max_length=35, verbose_name='телефон', **NULLABLE)
-    avatar = models.ImageField(upload_to='users/', verbose_name='аватар', **NULLABLE)
-    country = models.CharField(max_length=80, verbose_name='страна', **NULLABLE)
+    phone = models.CharField(max_length=35,
+                             verbose_name='телефон', **NULLABLE)
+    avatar = models.ImageField(upload_to='users/',
+                               verbose_name='аватар', **NULLABLE)
+    country = models.CharField(max_length=80,
+                               verbose_name='страна', **NULLABLE)
 
-    telegram_chat_id = models.CharField(max_length=100, **NULLABLE, verbose_name='телеграм ID')
+    telegram_chat_id = models.CharField(max_length=100, **NULLABLE,
+                                        verbose_name='телеграм ID')
 
     def __str__(self):
         return self.email

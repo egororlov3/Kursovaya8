@@ -1,4 +1,3 @@
-import logging
 from datetime import datetime, timedelta
 from celery import shared_task
 import requests
@@ -7,36 +6,6 @@ from .models import Habit
 from celery import current_app
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
-
-
-@shared_task
-def send_telegram_reminder(habit_id):
-    try:
-        habit = Habit.objects.get(id=habit_id)
-        user = habit.user
-        chat_id = user.telegram_chat_id
-
-        if chat_id:
-            message = f"Не забудьте выполнить привычку: {habit.action}."
-            data = {
-                'chat_id': chat_id,
-                'text': message,
-            }
-
-            response = requests.post(TELEGRAM_API_URL, data=data)
-            response.raise_for_status()
-
-            if response.ok:
-                return f"Успешно отправлено уведомление для {user.username} о привычке {habit.action}"
-            else:
-                return f"Ошибка отправки уведомления: {response.text}"
-
-        return f"Пользователь {user.username} не указал Telegram chat_id."
-
-    except Habit.DoesNotExist:
-        return f"Привычка с id {habit_id} не найдена."
-    except Exception as e:
-        return f"Произошла ошибка: {str(e)}"
 
 
 @shared_task
@@ -105,4 +74,3 @@ def test_message(chat_id):
         'text': message,
     }
     response = requests.post(TELEGRAM_API_URL, data=data)
-

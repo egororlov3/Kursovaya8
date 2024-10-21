@@ -49,7 +49,7 @@ class HabitCreateView(APIView):
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print("Errors:", serializer.errors)  # Вывод ошибок для отладки
+        print("Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -72,7 +72,7 @@ class HabitDetailView(APIView):
         serializer = HabitSerializer(habit)
         return Response(serializer.data)
 
-    def put(self, request, habit_id):  # Параметр остается habit_id
+    def put(self, request, habit_id):
         # Изменяет привычку по ID
         habit = self.get_object(habit_id, request.user)
         if habit is None:
@@ -80,7 +80,7 @@ class HabitDetailView(APIView):
 
         serializer = HabitSerializer(habit, data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()  # Не обязательно передавать user, так как он уже связан с объектом
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
