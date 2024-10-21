@@ -10,7 +10,7 @@ class TestHabitModel:
 
     @pytest.fixture
     def user(self):
-        return User.objects.create_user(username='testuser', password='password123')
+        return User.objects.create_user(username="testuser", password="password123")
 
     @pytest.fixture
     def habit(self, user):
@@ -23,12 +23,12 @@ class TestHabitModel:
             period=3,
             reward="Отдых",
             time_to_complete=60,
-            is_public=True
+            is_public=True,
         )
 
     def test_habit_creation(self, habit):
         """Тест для создания привычки с валидными данными"""
-        assert habit.user.username == 'testuser'
+        assert habit.user.username == "testuser"
         assert habit.place == "Спортзал"
         assert habit.time == "18:00"
         assert habit.action == "Тренировка"
@@ -54,15 +54,15 @@ class TestHabitModel:
             period=1,
             reward="Кофе",
             time_to_complete=30,
-            is_public=False
+            is_public=False,
         )
         assert linked_habit.linked_habit == habit
         assert linked_habit.linked_habit.action == "Тренировка"
 
     def test_field_max_length(self):
         """Тест на максимальную длину полей"""
-        habit = Habit._meta.get_field('place')
+        habit = Habit._meta.get_field("place")
         assert habit.max_length == 255
 
-        action = Habit._meta.get_field('action')
+        action = Habit._meta.get_field("action")
         assert action.max_length == 255

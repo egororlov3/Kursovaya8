@@ -5,7 +5,9 @@ from django.conf import settings
 from .models import Habit
 from celery import current_app
 
-TELEGRAM_API_URL = f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
+TELEGRAM_API_URL = (
+    f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
+)
 
 
 @shared_task
@@ -18,8 +20,8 @@ def send_telegram_reminder(habit_id):
         if chat_id:
             message = f"Не забудьте выполнить привычку: {habit.action}."
             data = {
-                'chat_id': chat_id,
-                'text': message,
+                "chat_id": chat_id,
+                "text": message,
             }
 
             response = requests.post(TELEGRAM_API_URL, data=data)
@@ -70,7 +72,7 @@ def remove_task(task_name):
 def test_message(chat_id):
     message = "Тестовое сообщение"
     data = {
-        'chat_id': chat_id,
-        'text': message,
+        "chat_id": chat_id,
+        "text": message,
     }
     response = requests.post(TELEGRAM_API_URL, data=data)

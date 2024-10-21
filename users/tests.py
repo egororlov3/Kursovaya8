@@ -14,12 +14,12 @@ class TestUserModel:
             "phone": "+123456789",
             "avatar": None,
             "country": "Россия",
-            "telegram_chat_id": "123456789"
+            "telegram_chat_id": "123456789",
         }
 
     def test_user_creation(self, user_data):
         """Тест создания пользователя с валидными данными"""
-        user = User.objects.create_user(**user_data, password='testpassword123')
+        user = User.objects.create_user(**user_data, password="testpassword123")
         assert user.username == "testuser"
         assert user.email == "testuser@example.com"
         assert user.phone == "+123456789"
@@ -28,9 +28,9 @@ class TestUserModel:
 
     def test_user_unique_email(self, user_data):
         """Тест уникальности поля email"""
-        User.objects.create_user(**user_data, password='testpassword123')
+        User.objects.create_user(**user_data, password="testpassword123")
         with pytest.raises(ValidationError):
-            user_data['username'] = "testuser"  # Изменим только имя пользователя
+            user_data["username"] = "testuser"  # Изменим только имя пользователя
             user2 = User(**user_data)
             user2.full_clean()  # Это вызовет ошибку уникальности
 
@@ -39,7 +39,7 @@ class TestUserModel:
         user_data["phone"] = None
         user_data["avatar"] = None
         user_data["telegram_chat_id"] = None
-        user = User.objects.create_user(**user_data, password='testpassword123')
+        user = User.objects.create_user(**user_data, password="testpassword123")
 
         assert user.phone is None
         assert user.avatar.name is None
