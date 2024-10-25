@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_@vo0%1dkwa(j8e&1t$6h+t-5_)fw9go_0wy065na917bn)kp2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', '0') == '1'
 
-ALLOWED_HOSTS = ['15c4-95-24-220-215.ngrok-free.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['15c4-95-24-220-215.ngrok-free.app', 'localhost', '127.0.0.1', 'web']
 
 APPEND_SLASH = False
 
@@ -86,10 +87,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'habit_tracker',
-        'USER': 'postgres',
-        'PASSWORD': '3219035',
-        'HOST': 'localhost',
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -127,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -152,7 +154,7 @@ CELERY_TASK_SERIALIZER = 'json'
 # Настройки для Celery
 
 # URL-адрес для хранения результатов задач
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Часовой пояс
 CELERY_TIMEZONE = "Europe/Moscow"
@@ -164,10 +166,10 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 минут
 
 
-TELEGRAM_BOT_TOKEN = '7809347377:AAGBdPUSRcNsBgQcMWsvHGxrm-EMBtL3fso'
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
 # URL для вебхука вашего Telegram-бота
-WEBHOOK_URL = 'https://15c4-95-24-220-215.ngrok-free.app/telegram-webhook/'
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')
 
 
 CORS_ALLOW_ALL_ORIGINS = True
